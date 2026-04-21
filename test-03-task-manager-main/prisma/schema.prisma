@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+
+}
+
+// Modelos (User, Task, etc.)
+
+ model User {
+   id        String   @id @default(cuid())
+   email     String   @unique
+   name      String?
+   password  String
+   tasks     Task[]
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+   role      String   @default("USER") // "USER" o "SUPER_USER"
+ }
+
+ model Task {
+   id          String   @id @default(cuid())
+   title       String
+   description String?
+   status      String   @default("pendiente") // pendiente | completada
+   dueDate     DateTime?
+   bitAct      Int      @default(1) // 1=Activo, 0=Inactivo (Log)
+   userId      String
+   user        User     @relation(fields: [userId], references: [id])
+   createdAt   DateTime @default(now())
+   updatedAt   DateTime @updatedAt
+ }
+
+ model FormField {
+  id          String   @id @default(cuid())
+  formType    String   // "REGISTER" o "TASK_DASHBOARD"
+  fieldName   String   // El nombre técnico (ej: "title")
+  label       String   // Lo que ve el usuario (ej: "Título" o "NAME")
+  placeholder String?
+  type        String   // "text", "date", "datetime-local", "textarea"
+  isRequired  Boolean  @default(false)
+  isActive    Boolean  @default(true) // Para habilitar/deshabilitar
+  order       Int      @default(0)    // Para el orden de aparición
+  createdAt   DateTime @default(now())
+  @@unique([formType, fieldName])
+}
+
