@@ -50,7 +50,7 @@ https://task.ragineer.com/login
 
 ##  Instalación local
 
-### 1. Clonar el repositorio
+### Clonar el repositorio
 
 ```bash
 git clone https://github.com/ragineerd/tasks-manager.git
@@ -93,7 +93,8 @@ DATABASE_URL	Ruta SQLite (file:./dev.db)
 NEXTAUTH_SECRET	Llave secreta de sesión
 NEXTAUTH_URL	URL base del sistema
 
----- Decisiones Técnicas-----
+---
+### Decisiones Técnicas
  Arquitectura
 Next.js (App Router)
 SSR para seguridad y rendimiento en rutas protegidas
@@ -125,13 +126,13 @@ El proyecto está preparado para:
 PM2 → manejo de procesos
 Nginx → reverse proxy
 VPS (Vultr / Hostinger)
-
-## Mejoras con tiempo
+---
+### Mejoras con tiempo
 Con un poco mas de tiempo me hubiera gustado implementar actualizacion de parametros en el registro con valiacion por codigo de seguridad
 mediante resend por decirlo de una manera, y algunos reportes para descargar segun la tareas , la prioridad , tiempo de solucion y demas.
 Configuracion de perfil para guardar informacion personal estilo avatar.
 Un CRUD para el super usuario y controlar tanto usuarios como tareas en su maxima capacidad.
---
-## Autor
+---
+### Autor
 Desarrollado por Ragineer
  https://ragineer.com
