@@ -70,25 +70,25 @@ export default function LoginForm() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
+            <input
             type="email"
             placeholder="Email"
             required
             disabled={loading}
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-900 bg-white"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
+            />
 
-          <input
+            <input
             type="password"
             placeholder="Contraseña"
             required
             disabled={loading}
-            className="w-full px-4 py-2 border rounded"
+            className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-zinc-900 bg-white"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          />
+        />
 
           <button
             type="submit"
