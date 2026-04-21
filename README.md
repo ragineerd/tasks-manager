@@ -107,17 +107,17 @@ SQLite
 Setup rápido
 Ideal para pruebas técnicas
 Sin dependencias externas
-⚙️ ESM + TypeScript
+ ESM + TypeScript
 
 El proyecto usa ES Modules, por lo que:
 
 Se usa ts-node/esm para ejecutar seeds
 Compatible con entornos modernos de Node.js
  Optimizaciones
-✅ Validación doble (cliente + servidor)
-✅ Manejo de sesiones seguro
-✅ UI reactiva con estados dinámicos
-✅ Código preparado para escalar a producción
+   Validación doble (cliente + servidor)
+   Manejo de sesiones seguro
+   UI reactiva con estados dinámicos
+   Código preparado para escalar a producción
  Deploy (Producción)
 
 El proyecto está preparado para:
@@ -134,4 +134,4 @@ Un CRUD para el super usuario y controlar tanto usuarios como tareas en su maxim
 --
 ## Autor
 Desarrollado por Ragineer
-🌐 https://ragineer.com
+ https://ragineer.com
