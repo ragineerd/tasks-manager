@@ -20,7 +20,7 @@ export async function GET() {
     orderBy: { createdAt: 'desc' }
   });
 
-  // 2. Traer Todas las Tareas (NUEVO)
+  // 2. Traer Todas las Tareas 
   const tasks = await prisma.task.findMany({
     select: {
       id: true, title: true, status: true, createdAt: true, dueDate: true,
@@ -29,6 +29,6 @@ export async function GET() {
     orderBy: { createdAt: 'desc' }
   });
 
-  // Devolvemos ambos objetos
+  
   return NextResponse.json({ users, tasks });
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth"; // UNICA FUENTE DE VERDAD
+import { authOptions } from "@/lib/auth"; 
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
@@ -9,7 +9,6 @@ const taskSchema = z.object({
   title: z.string().min(1, "El título es obligatorio").max(100),
   description: z.string().optional().nullable(),
   status: z.enum(["pendiente", "en_progreso", "completada"]).default("pendiente"),
-  // Ajuste para aceptar el string de datetime-local y convertirlo a Date de JS
   dueDate: z.string()
     .optional()
     .nullable()
@@ -24,7 +23,7 @@ export async function GET() {
   const tasks = await prisma.task.findMany({
     where: { 
       userId: session.user.id,
-      bitAct: 1 // IMPORTANTE: Solo traer las que tienen bit 1
+      bitAct: 1 
     },
     orderBy: { createdAt: "desc" },
   });
@@ -54,7 +53,7 @@ export async function POST(req: Request) {
         status,
         dueDate,
         userId: session.user.id,
-        bitAct: 1, // Aquí se asigna el valor real
+        bitAct: 1, 
       },
     });
 

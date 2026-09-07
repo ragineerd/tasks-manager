@@ -3,12 +3,12 @@ const prisma = new PrismaClient()
 
 async function main() {
   const allFields = [
-    // Campos de Tareas (para asegurar que existan)
+    // Campos de Tareas 
     { formType: 'TASK_DASHBOARD', fieldName: 'title', label: 'Título de la tarea', type: 'text', isRequired: true },
     { formType: 'TASK_DASHBOARD', fieldName: 'dueDate', label: 'Fecha Límite', type: 'datetime-local', isRequired: false },
     { formType: 'TASK_DASHBOARD', fieldName: 'description', label: 'Descripción', type: 'textarea', isRequired: false },
     
-    // Campos de Registro (Tus campos para el nuevo formulario)
+    // Campos de Registro 
     { formType: 'REGISTER', fieldName: 'name', label: 'Nombre Completo', type: 'text', isRequired: true },
     { formType: 'REGISTER', fieldName: 'email', label: 'Correo Electrónico', type: 'text', isRequired: true },
     { formType: 'REGISTER', fieldName: 'password', label: 'Contraseña', type: 'text', isRequired: true },
@@ -19,13 +19,12 @@ async function main() {
   for (const field of allFields) {
     await prisma.formField.upsert({
       where: {
-        // Esto funciona gracias al @@unique([formType, fieldName]) que acabas de agregar
         formType_fieldName: {
           formType: field.formType,
           fieldName: field.fieldName,
         },
       },
-      update: {}, // No actualizamos nada si ya existe
+      update: {},
       create: {
         ...field,
         isActive: true,

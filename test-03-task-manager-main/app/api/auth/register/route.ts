@@ -23,7 +23,6 @@ export async function POST(req: Request) {
     const validation = registerSchema.safeParse(payload);
 
     if (!validation.success) {
-      // CORRECCIÓN: Usamos .issues en lugar de .errors
       const errorMessage = validation.error.issues[0].message;
       return NextResponse.json(
         { error: errorMessage },
@@ -51,8 +50,7 @@ export async function POST(req: Request) {
         email,
         name,
         password: hashedPassword,
-        // Si tu esquema lo requiere, recuerda que bitAct suele ser 1 por defecto
-        role: "USER" // Asegúrate de que coincida con tu lógica de roles
+        role: "USER"
       },
     });
 
@@ -64,7 +62,6 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error("[AUTH_REGISTRATION_ERROR]:", error);
 
-    // Error de unicidad de Prisma (aunque ya lo validamos arriba con findUnique)
     if (error.code === "P2002") {
       return NextResponse.json(
         { error: "El correo ya está en uso" },

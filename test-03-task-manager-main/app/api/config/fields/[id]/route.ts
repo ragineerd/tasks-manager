@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: Promise<{ id: string }> } // Cambio: Promesa
+  { params }: { params: Promise<{ id: string }> } 
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -14,7 +14,7 @@ export async function PATCH(
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
     }
 
-    const { id } = await params; // Cambio: Await
+    const { id } = await params; 
     const body = await req.json();
 
     const updatedField = await prisma.formField.update({

@@ -30,7 +30,6 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
 
-    // CAMBIO CLAVE: Usamos .update() en lugar de .delete()
     await prisma.task.update({
       where: { id: id, userId: session.user.id },
       data: { bitAct: 0 }, // Aquí desactivamos el bit

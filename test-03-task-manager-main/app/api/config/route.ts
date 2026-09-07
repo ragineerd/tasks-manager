@@ -1,4 +1,4 @@
-// app/api/config/route.ts
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
@@ -11,7 +11,6 @@ export async function GET(request: Request) {
   const session = await getServerSession(authOptions);
   const isSuperUser = (session?.user as any)?.role === "SUPER_USER";
 
-  // Si es admin y SuperUser, traemos absolutamente todo sin filtros
   const fields = await prisma.formField.findMany({
     where: isAdminRequest && isSuperUser ? {} : { isActive: true },
     orderBy: { order: 'asc' }

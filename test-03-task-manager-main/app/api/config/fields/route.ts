@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth"; 
 
-// --- FUNCIÓN GET (La que ya tienes) ---
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const type = searchParams.get("type"); 
@@ -36,14 +36,14 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { formType, fieldName, label, type } = body;
 
-    //  Validación CRÍTICA
+   
     if (!/^[a-z0-9_]{1,25}$/.test(fieldName)) {
       return NextResponse.json({
         error: "Nombre técnico inválido. Usa minúsculas, números y _"
       }, { status: 400 });
     }
 
-    //  Mapear tipo a SQL
+    
     const getSqlType = (inputType: string) => {
       switch (inputType) {
         case "number": return "REAL";
@@ -54,16 +54,16 @@ export async function POST(req: Request) {
     const targetTable = formType === "TASK_DASHBOARD" ? "Task" : "User";
     const sqlType = getSqlType(type);
 
-    //  ALTER TABLE (sincronización real)
+    
     try {
       await prisma.$executeRawUnsafe(
         `ALTER TABLE ${targetTable} ADD COLUMN ${fieldName} ${sqlType}`
       );
     } catch (sqlError: any) {
-      console.warn("⚠️ Columna ya existe o error SQL:", sqlError.message);
+      console.warn(" Columna ya existe o error SQL:", sqlError.message);
     }
 
-    //  UPSERT (evita duplicados)
+    
     const newField = await prisma.formField.upsert({
       where: {
         formType_fieldName: { formType, fieldName }

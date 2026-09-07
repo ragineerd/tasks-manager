@@ -19,7 +19,7 @@ export default function RegisterPage() {
           return;
       }
 
-      // Validación de extensiones de correo manual (opcional, el navegador ayuda mucho aquí)
+      // Validación de extensiones de correo manual 
       const emailRegex = /^[^\s@]+@[^\s@]+\.(com|mx|es|com\.mx|net|org)$/i;
       if (!emailRegex.test(formData.email)) {
           setError("Por favor ingresa un correo válido (ej: .com, .mx, .es)");
@@ -39,7 +39,6 @@ export default function RegisterPage() {
         const data = await res.json();
 
         if (!res.ok) {
-          // Ahora data.error traerá el mensaje específico del backend
           throw new Error(data.error || "Error al registrarse");
         }
 

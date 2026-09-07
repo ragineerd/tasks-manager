@@ -5,7 +5,6 @@ import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
-  // @ts-ignore
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
@@ -35,7 +34,7 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           name: user.name,
-          role: user.role, // Importante para tu sistema de roles
+          role: user.role,
         };
       },
     }),

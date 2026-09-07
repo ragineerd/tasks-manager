@@ -28,7 +28,6 @@ export default function TasksPage() {
   const [formConfig, setFormConfig] = useState<FormField[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Estados del formulario
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
@@ -45,7 +44,6 @@ export default function TasksPage() {
     setLoading(true);
     const [tasksRes, configRes] = await Promise.all([
       fetch("/api/tasks"),
-      // Usamos ?type= para filtrar en la API
       fetch("/api/config/fields?type=TASK_DASHBOARD") 
     ]);
 
@@ -253,7 +251,6 @@ export default function TasksPage() {
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-zinc-900/60 backdrop-blur-sm">
               <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
                 
-                {/* Encabezado del Modal */}
                 <div className="p-6 border-b border-zinc-100 flex justify-between items-start">
                   <div>
                     <span className={`text-[10px] font-black px-2 py-1 rounded-md uppercase tracking-wider ${selectedTask.status === 'completada' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600'}`}>
@@ -264,10 +261,8 @@ export default function TasksPage() {
                   <button onClick={closeModal} className="text-zinc-400 hover:text-zinc-800 p-2 text-xl">✕</button>
                 </div>
 
-                {/* Cuerpo del Modal - AQUÍ SE MUESTRAN TODOS LOS CAMPOS DINÁMICOS */}
                 <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
                   {formConfig.map((field) => {
-                    // Obtenemos el valor de la tarea para este campo técnico
                     const value = (selectedTask as any)[field.fieldName];
                     
                     return (
@@ -289,7 +284,6 @@ export default function TasksPage() {
                   })}
                 </div>
 
-                {/* Acciones del Modal */}
                 <div className="p-6 bg-zinc-50 border-t border-zinc-100 flex gap-3">
                   <button 
                     onClick={() => {
