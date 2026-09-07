@@ -20,23 +20,66 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+  if (!credentials?.email || !credentials?.password) {
+    console.log("AUTH: faltan credenciales");
+    return null;
+  }
 
-        const email = credentials.email.toLowerCase().trim();
-        const user = await prisma.user.findUnique({ where: { email } });
+  const email = credentials.email.toLowerCase().trim();
 
-        if (!user || !user.password) return null;
+  console.log("AUTH: intentando login:", email);
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
-        if (!isValid) return null;
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-        };
-      },
+  console.log("AUTH: usuario encontrado:", !!user);
+  console.log("AUTH: tiene password:", !!user?.password);
+
+  if (!user || !user.password) {
+    console.log("AUTH: usuario inexistente o sin password");
+    return null;
+  }
+
+  const isValid = await bcrypt.compare(
+    credentials.password,
+    user.password
+  );
+
+  console.log("AUTH: password válida:", isValid);
+
+  if (!isValid) {
+    console.log("AUTH: contraseña incorrecta");
+    return null;
+  }
+
+  console.log("AUTH: LOGIN CORRECTO:", user.email);
+
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+  };
+},
+      // async authorize(credentials) {
+      //   if (!credentials?.email || !credentials?.password) return null;
+
+      //   const email = credentials.email.toLowerCase().trim();
+      //   const user = await prisma.user.findUnique({ where: { email } });
+
+      //   if (!user || !user.password) return null;
+
+      //   const isValid = await bcrypt.compare(credentials.password, user.password);
+      //   if (!isValid) return null;
+
+      //   return {
+      //     id: user.id,
+      //     email: user.email,
+      //     name: user.name,
+      //     role: user.role,
+      //   };
+      // },
     }),
   ],
   callbacks: {
